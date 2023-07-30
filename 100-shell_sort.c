@@ -23,29 +23,25 @@ void int_swap(int *x, int *y)
  */
 void shell_sort(int *array, size_t size)
 {
-size_t inter, m, n;
+	size_t inter, m, n;
 
-if (array == NULL || size < 2)
-	return;
+	if (array == NULL || size < 2)
+		return;
 
-inter = 1;
-while (inter < (size / 3))
-	inter = inter * 3 + 1;
+	for (inter = 1; inter < (size / 3);)
+		inter = inter * 3 + 1;
 
-while (inter >= 1)
-{
-	m = inter;
-	while (m < size)
+	for (; inter >= 1; inter /= 3)
 	{
-		n = m;
-		while (n >= inter && array[n - inter] > array[n])
+		for (m = inter; m < size; m++)
 		{
-			int_swap(array + n, array + (n - inter));
-			n -= inter;
+			n = m;
+			while (n >= inter && array[n - inter] > array[n])
+			{
+				int_swap(array + n, array + (n - inter));
+				n -= inter;
+			}
 		}
-		m++;
+		print_array(array, size);
 	}
-	print_array(array, size);
-	inter /= 3;
-}
 }
